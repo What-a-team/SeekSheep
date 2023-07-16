@@ -3,22 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Axe : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
+    public static UIManager instance { get; private set; }
+
     public GameObject axeImg;
     public GameObject woodImg;
     public Text woodNumText;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+
+    }
+
+    
     
     public void GetAxe()
     {
         axeImg.SetActive(true);
         woodImg.SetActive(true);
-        woodNumText.text = "1";
-        Destroy(this.gameObject);
+        woodNumText.text = "0";
     }
 
     public void UpdateWoodNum(int num)
     {
         woodNumText.text = num.ToString();
     }
+
+
+
 }

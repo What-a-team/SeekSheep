@@ -32,7 +32,7 @@ public class Water : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (spriteRenderer.sprite == wood)
+        if (collision.tag == "Player" && spriteRenderer.sprite == wood)
         {
             spriteRenderer.sprite = null;
             transform.tag = "water";

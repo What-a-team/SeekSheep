@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &249284484040214508
+--- !u!1 &11308570466992770
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9061421396265714209}
-  - component: {fileID: 3658701530149942459}
+  - component: {fileID: 9123498170845448015}
+  - component: {fileID: 3574695195857547733}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9061421396265714209
+--- !u!4 &9123498170845448015
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249284484040214508}
+  m_GameObject: {fileID: 11308570466992770}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 191937912194825712}
+  m_Father: {fileID: 140853472905722014}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3658701530149942459
+--- !u!212 &3574695195857547733
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249284484040214508}
+  m_GameObject: {fileID: 11308570466992770}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 235860557
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 830aee62aba9b334c8c1f89f0d1394a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,10 +81,10 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &8328068610299245471
+--- !u!1 &8128629787982182129
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,40 +92,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 191937912194825712}
-  - component: {fileID: 5315943905311403837}
-  - component: {fileID: 6101620477519137511}
-  - component: {fileID: 3795243142085079951}
+  - component: {fileID: 140853472905722014}
+  - component: {fileID: 5376041412927990355}
+  - component: {fileID: 6336776333819285385}
+  - component: {fileID: 4032663923631486689}
   m_Layer: 0
-  m_Name: water
-  m_TagString: water
+  m_Name: woodInWater(Ice)
+  m_TagString: ice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &191937912194825712
+--- !u!4 &140853472905722014
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8328068610299245471}
+  m_GameObject: {fileID: 8128629787982182129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 2, y: -3, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9061421396265714209}
+  - {fileID: 9123498170845448015}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5315943905311403837
+--- !u!212 &5376041412927990355
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8328068610299245471}
+  m_GameObject: {fileID: 8128629787982182129}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -171,13 +171,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6101620477519137511
+--- !u!114 &6336776333819285385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8328068610299245471}
+  m_GameObject: {fileID: 8128629787982182129}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b75a5e7289e06514ca308e679ecd77c2, type: 3}
@@ -185,13 +185,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wood: {fileID: 21300000, guid: 830aee62aba9b334c8c1f89f0d1394a5, type: 3}
   stone: {fileID: 21300000, guid: 6bb72587c2eb73a409619c0606cd3fba, type: 3}
---- !u!61 &3795243142085079951
+--- !u!61 &4032663923631486689
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8328068610299245471}
+  m_GameObject: {fileID: 8128629787982182129}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}

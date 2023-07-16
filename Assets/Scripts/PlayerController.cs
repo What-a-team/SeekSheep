@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
     public LayerMask iceDectectLayer, normalDetectLayer;
     public float speedOnIce = 0.5f;
-    public bool isOnIce = false, canControl = true;
-    public int axe = 0, wood = 0;
+    public int wood = 0;
+    bool hasAxe = false;
 
+
+    bool isOnIce = false, canControl = true;
 
     Vector3 direction;
     Tweener _tweener, _tweenerIce;
@@ -24,8 +27,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         if (Input.GetKeyDown(KeyCode.R))
-            ReloadLevel();
+            ButtonManager.instance.ReloadLevel();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ButtonManager.instance.LoadLevel("LevelSelect");
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -148,27 +156,36 @@ public class PlayerController : MonoBehaviour
                     if (wood > 0)
                     {
                         wood--;
+                        UIManager.instance.UpdateWoodNum(wood);
                         coll.GetComponent<Water>().BuildBridge(ToolType.Wood);
                     }
                     return false;
                 case "ice":
                     isOnIce = true;
                     return true;
+                case "torch":
+                    GetTorch(coll);
+                    return true;
                 case "axe":
-                    coll.GetComponent<Axe>().GetAxe();
-                    axe++;
+                    UIManager.instance.GetAxe();
+                    Destroy(coll.gameObject);
+                    hasAxe = true;
                     return true;
                 case "stump":
-                    if (axe > 0)
+                    if (hasAxe)
                     {
-                        axe--;
                         wood++;
+                        UIManager.instance.UpdateWoodNum(wood);
                         Destroy(coll.gameObject);
                         return true;
                     }
                     return false;
+                case "target":
+                    return true;
                 case "sheep":
-                    print("Found Sheep");
+                    FoundSheep();
+                    return false;
+                case "fakeTree":
                     return true;
                 case "grass":
                     return true;
@@ -184,14 +201,24 @@ public class PlayerController : MonoBehaviour
 
 
 
-    void ReloadLevel()
+    
+
+
+    void GetTorch(Collider2D coll)
     {
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.buildIndex);
+        Light2D light = transform.GetChild(1).GetComponent<Light2D>();
+        DOTween.To(() => light.pointLightOuterRadius, x => light.pointLightOuterRadius = x, 3f, 2f);
+        transform.GetChild(0).gameObject.SetActive(true);
+        Destroy(coll.gameObject);
     }
 
-
-   
-
+    void FoundSheep()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.buildIndex + 1 < SceneManager.sceneCountInBuildSettings)
+            ButtonManager.instance.LoadLevel(scene.buildIndex + 1);
+        else
+            ButtonManager.instance.LoadLevel("LevelSelect");
+    }
 
 }
