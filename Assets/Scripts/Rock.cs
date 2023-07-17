@@ -5,44 +5,50 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
+    public float speedOnIce = 0.3f;
     public float speed = 0.1f;
     public Sprite rockOnTarget;
     Sprite rockNotTarget;
-    Tweener _tweener;
+    Tweener _tweener, _tweenerIce;
+
     SpriteRenderer spriteRenderer;
     GameObject rock_light;
     void Start()
     {
         _tweener = this.transform.DOMove(transform.position, speed).SetAutoKill(false);
+        _tweenerIce = this.transform.DOMove(transform.position, speedOnIce).SetAutoKill(false);
+
         spriteRenderer = this.GetComponent<SpriteRenderer>();
         rockNotTarget = spriteRenderer.sprite;
         rock_light = this.transform.GetChild(0).gameObject;
+
     }
 
 
 
     public bool CheckMove(Vector3 direction)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + direction, direction, 0.1f);
-        if (!hit)
+        Collider2D coll = Physics2D.OverlapCircle(transform.position + direction, 0.1f);
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position + direction, direction, 0.1f);
+        if (!coll)
         {
             _tweener.ChangeEndValue(transform.position + direction, true).Play();
             return true;
         }
         else
         {
-            switch(hit.collider.tag)
+            switch(coll.tag)
             {
                 case "tree":
                     return false;
                 case "rock":
                     return false;
                 case "pit":
-                    hit.collider.GetComponent<Pit>().FillPit();
+                    coll.GetComponent<Pit>().FillPit();
                     MoveAndDestroy(direction);
                     return true;
                 case "water":
-                    hit.collider.GetComponent<Water>().BuildBridge(ToolType.Stone);
+                    coll.GetComponent<Water>().BuildBridge(ToolType.Stone);
                     MoveAndDestroy(direction);
                     return true;
                 case "target":
@@ -52,6 +58,9 @@ public class Rock : MonoBehaviour
                     return false;
                 case "axe":
                     return false;
+                case "fakeTree":
+                    _tweener.ChangeEndValue(transform.position + direction, true).Play();
+                    return true;
                 case "sheep":
                     return false;
                 case "grass":
@@ -63,6 +72,79 @@ public class Rock : MonoBehaviour
     }
 
 
+    public void IceCheckMove(Vector3 direction)
+    {
+        Collider2D coll = null;
+        int i;
+        for (i = 1; i < 20; i++)
+        {
+            coll = Physics2D.OverlapCircle(transform.position + i * direction, 0.1f);
+            if (coll != null && coll.tag != "ice")
+            {
+                print("[rock]:"+coll.name);
+                break;
+            }
+                
+        }
+
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position + direction, direction, 0.1f);
+        if (!coll)
+        {
+            _tweener.ChangeEndValue(transform.position + direction, true).Play();
+            print("rock-no");
+            return;
+        }
+        else
+        {
+            switch (coll.tag)
+            {
+                case "ice-obstacle":
+                    _tweenerIce.ChangeEndValue(transform.position + (i - 1) * direction, true).Play();
+                    return;
+                case "rock":
+                    StartCoroutine(SkateOnIce(direction, (i - 1) * direction, coll));
+                    //_tweenerIce.ChangeEndValue(transform.position + (i - 1) * direction, true).Play();
+                    //coll.GetComponent<Rock>().IceCheckMove(direction);
+                    return;
+                case "tree":
+                    _tweenerIce.ChangeEndValue(transform.position + (i - 1) * direction, true).Play();
+                    return;
+                case "ice":
+                    return;
+                case "pit":
+                    coll.GetComponent<Pit>().FillPit();
+                    MoveAndDestroy(i * direction);
+                    return;
+                case "water":
+                    coll.GetComponent<Water>().BuildBridge(ToolType.Stone);
+                    MoveAndDestroy(i * direction);
+                    return;
+                case "target":
+                    _tweenerIce.ChangeEndValue(transform.position + i*direction, true).Play();
+                    return;
+                case "sheep":
+                    return;
+                case "grass":
+                    _tweenerIce.ChangeEndValue(transform.position + (i-1)*direction, true).Play();
+                    return;
+            }
+        }
+        return;
+    }
+
+
+
+    IEnumerator SkateOnIce(Vector3 direction, Vector3 distance, Collider2D coll)
+    {
+        _tweenerIce.ChangeEndValue(transform.position + distance, true).Play();
+        yield return new WaitForSeconds(speedOnIce);
+
+        coll.GetComponent<Rock>().IceCheckMove(direction);
+
+    }
+
+
+
     void MoveAndDestroy(Vector3 direction)
     {
         _tweener.ChangeEndValue(transform.position + direction, true).Play();
@@ -72,10 +154,14 @@ public class Rock : MonoBehaviour
 
     public void RockOnTartget()
     {
-        spriteRenderer.sprite = rockOnTarget;
-        rock_light.SetActive(true);
+        
         TargetsManager.instance.completeNum++;
         TargetsManager.instance.OpenDoor();
+    }
+    public void RockStayOnTarget()
+    {
+        spriteRenderer.sprite = rockOnTarget;
+        rock_light.SetActive(true);
     }
 
     public void RockLeaveTarget()

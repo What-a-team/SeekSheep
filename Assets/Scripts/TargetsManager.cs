@@ -11,6 +11,7 @@ public class TargetsManager : MonoBehaviour
     public float doorDisappearTime = 1f;
     public int totalNum;
     public int completeNum;  // 推到了目标位置上的箱子数量
+    bool hasOpen = false;
 
     private void Awake()
     {
@@ -23,7 +24,7 @@ public class TargetsManager : MonoBehaviour
 
     public void OpenDoor()
     {
-        if (totalNum == completeNum)
+        if (!hasOpen && totalNum == completeNum)
             StartCoroutine(IOpenDoor());
            
     }
@@ -34,6 +35,7 @@ public class TargetsManager : MonoBehaviour
         t.Kill();
         yield return new WaitForSeconds(doorDisappearTime);
         Destroy(door);
+        hasOpen = true;
 ;
     }
 

@@ -4,30 +4,43 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.Universal;
+using System.Threading;
 
 public class PlayerController : MonoBehaviour
 {
     public LayerMask iceDectectLayer, normalDetectLayer;
+    public int step = 0;
+    public float speedOnLand = 0.1f;
     public float speedOnIce = 0.5f;
+    public bool overallControl = true;
+
     public int wood = 0;
     bool hasAxe = false;
 
 
-    bool isOnIce = false, canControl = true;
+    public bool isOnIce = false, canControl = true;
 
     Vector3 direction;
     Tweener _tweener, _tweenerIce;
 
+    LevelState_ISO iso;
+    public float timer = 0;
+
     void Start()
     {
-        _tweener = this.transform.DOMove(transform.position + direction, 0.1f).SetAutoKill(false);
+        _tweener = this.transform.DOMove(transform.position + direction, speedOnLand).SetAutoKill(false);
         _tweenerIce = this.transform.DOMove(transform.position + direction, speedOnIce).SetAutoKill(false);
+        iso = Resources.Load("LevelState_ISO") as LevelState_ISO;
     }
 
     // Update is called once per frame
     void Update()
     {
+        CoolDown();
 
+
+        if (!overallControl)
+            return;
 
         if (Input.GetKeyDown(KeyCode.R))
             ButtonManager.instance.ReloadLevel();
@@ -55,7 +68,12 @@ public class PlayerController : MonoBehaviour
             if (direction != Vector3.zero)
             {
                 if (CheckMove(direction))
+                {
                     _tweener.ChangeEndValue(transform.position + direction, true).Play();
+
+                    overallControl = false;
+                    step++;
+                }
             }
 
             direction = Vector3.zero;
@@ -77,10 +95,22 @@ public class PlayerController : MonoBehaviour
                 if (direction != Vector3.zero)
                 {
                     Collider2D coll = Physics2D.OverlapCircle(transform.position + direction, 0.1f);
-                    if (coll != null && coll.tag != "ice" && coll.tag != "grass" && CheckMove(direction))
+                    if (coll != null && coll.tag == "rock")
+                        coll.GetComponent<Rock>().IceCheckMove(direction);
+                    else if (coll != null && coll.tag != "ice" && coll.tag != "grass" && CheckMove(direction))
+                    {
                         _tweener.ChangeEndValue(transform.position + direction, true).Play();
+
+                        overallControl = false;
+                        step++;
+                    }
                     else
+                    {
                         StartCoroutine(SkateOnIce());
+
+                        step++;
+                    }
+
                 }
 
                 direction = Vector3.zero;
@@ -99,7 +129,7 @@ public class PlayerController : MonoBehaviour
         canControl = false;
 
         Collider2D coll = null;
-        for (int i = 1; i < 10; i++)
+        for (int i = 1; i < 20; i++)
         {
             coll = Physics2D.OverlapCircle(transform.position + i*direction, 0.1f);
             if (coll.tag != "ice")
@@ -107,19 +137,21 @@ public class PlayerController : MonoBehaviour
                 //print(coll.name);
                 break;
             }
-            else
-                print("no");
         }
 
        // RaycastHit2D hit = Physics2D.Raycast(transform.position + direction, direction, 10f, iceDectectLayer);
         if (coll != null)
         {
-            float Distance = Vector3.Distance(transform.position, coll.transform.position);
             
             if (coll.tag == "grass")
             {
                 isOnIce = false;
                 _tweenerIce.ChangeEndValue(coll.transform.position, true).Play();
+            }else if (coll.tag == "rock")
+            {
+                 _tweenerIce.ChangeEndValue(coll.transform.position - direction, true).Play();
+               //  coll.GetComponent<Rock>().IceCheckMove(direction);
+                 StartCoroutine(PushRockOnIce(coll, direction));
             }
             else
                 _tweenerIce.ChangeEndValue(coll.transform.position - direction, true).Play();
@@ -132,6 +164,14 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(speedOnIce);
         canControl = true;
 
+    }
+
+    IEnumerator PushRockOnIce(Collider2D coll, Vector3 direction)
+    {
+        overallControl = false;
+        yield return new WaitForSeconds(speedOnIce);
+        overallControl = true;
+        coll.GetComponent<Rock>().IceCheckMove(direction);
     }
 
 
@@ -215,10 +255,26 @@ public class PlayerController : MonoBehaviour
     void FoundSheep()
     {
         Scene scene = SceneManager.GetActiveScene();
+ 
         if (scene.buildIndex + 1 < SceneManager.sceneCountInBuildSettings)
+        {
+            iso.levelState[scene.buildIndex - 2] = true;  // 去掉主菜单和选关界面
+
             ButtonManager.instance.LoadLevel(scene.buildIndex + 1);
+        }
         else
             ButtonManager.instance.LoadLevel("LevelSelect");
+    }
+
+    void CoolDown()
+    {
+        if (!overallControl && timer <= speedOnLand)
+            timer += Time.deltaTime;
+        else if (timer > speedOnLand)
+        {
+            overallControl = true;
+            timer = 0;
+        }
     }
 
 }
