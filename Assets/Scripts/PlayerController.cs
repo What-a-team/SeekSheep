@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             ButtonManager.instance.LoadLevel("LevelSelect");
         */
-
+        GetComponent<SpriteRenderer>().sortingOrder = (int)-transform.position.y;
 
 
         if (!isOnIce)

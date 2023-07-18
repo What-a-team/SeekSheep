@@ -6,11 +6,13 @@ public class FakeTree : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
 
-    private void Start()
+
+    void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sortingOrder = (int)-transform.position.y;
     }
-
+   
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
