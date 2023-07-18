@@ -944,6 +944,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 169695173}
     m_Modifications:
+    - target: {fileID: 963383604, guid: 380f844f57608d74ba768347721e5b7b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 683
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713727263, guid: 380f844f57608d74ba768347721e5b7b, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713727263, guid: 380f844f57608d74ba768347721e5b7b, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3414713374309371310, guid: 380f844f57608d74ba768347721e5b7b, type: 3}
       propertyPath: m_Name
       value: UIManager

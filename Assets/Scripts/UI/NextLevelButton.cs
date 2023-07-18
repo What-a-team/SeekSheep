@@ -25,6 +25,7 @@ public class NextLevelButton : MonoBehaviour
     }
     public void LoadNextLevel()
     {
+        UIManager.instance.UpdateDialogAndShow("complete", 2f);
         panelBetweenevel.SetActive(true);
 
 

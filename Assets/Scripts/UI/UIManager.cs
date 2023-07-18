@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,18 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance { get; private set; }
 
+    [Header("axe")]
     public GameObject axeImg;
     public GameObject woodImg;
     public Text woodNumText;
+
+    [Header("dialog")]
+    public RectTransform dialogUI;
+    public float moveY = 120f, showUpTime = 0.5f;
+    public Text DialogText;
+
+
+    Tweener _tweener;
 
     private void Awake()
     {
@@ -20,6 +30,9 @@ public class UIManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+
+        _tweener = dialogUI.DOLocalMove(dialogUI.localPosition, showUpTime).SetAutoKill(false);
 
     }
 
@@ -37,7 +50,19 @@ public class UIManager : MonoBehaviour
         woodNumText.text = num.ToString();
     }
 
-   
+   public void UpdateDialogAndShow(string text, float stayTime)
+   {
+        DialogText.text = text;
 
+        StartCoroutine(UIShowUp(stayTime));
+   }
+
+
+    IEnumerator UIShowUp(float stayTime)
+    {
+        _tweener.ChangeEndValue(dialogUI.localPosition + new Vector3(0, -moveY, 0), true).Play();
+        yield return new WaitForSeconds(stayTime);
+        _tweener.ChangeEndValue(dialogUI.localPosition + new Vector3(0, moveY, 0), true).Play();
+    }
 
 }
