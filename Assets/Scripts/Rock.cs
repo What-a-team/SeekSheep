@@ -54,8 +54,9 @@ public class Rock : MonoBehaviour
                 case "target":
                     _tweener.ChangeEndValue(transform.position + direction, true).Play();
                     return true;
-                case "ice":
-                    return false;
+                case "ice":  // 石头可以在冰上推一步
+                    _tweener.ChangeEndValue(transform.position + direction, true).Play();
+                    return true;
                 case "axe":
                     return false;
                 case "fakeTree":

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Rendering.Universal;
 
 public class TargetsManager : MonoBehaviour
 {
@@ -9,9 +10,13 @@ public class TargetsManager : MonoBehaviour
 
     public GameObject door;
     public float doorDisappearTime = 1f;
-    public int totalNum;
     public int completeNum;  // 推到了目标位置上的箱子数量
+
+    int totalNum;
     bool hasOpen = false;
+
+    Light2D doorlight;
+    float originIntensity;
 
     private void Awake()
     {
@@ -20,7 +25,16 @@ public class TargetsManager : MonoBehaviour
         else
             Destroy(gameObject);
 
+        totalNum = transform.childCount;
+        doorlight = door.transform.GetChild(0).GetComponent<Light2D>();
+        originIntensity = doorlight.intensity;
     }
+
+    public void ChangeDoorLight()
+    {
+        doorlight.intensity = originIntensity * (1.5f + 2f*completeNum / totalNum);
+    }
+
 
     public void OpenDoor()
     {
@@ -31,8 +45,10 @@ public class TargetsManager : MonoBehaviour
 
     IEnumerator IOpenDoor()
     {
-        Tweener t = door.GetComponent<SpriteRenderer>().DOColor(Color.clear, doorDisappearTime);
-        t.Kill();
+        doorlight.intensity *= 1.2f;
+        DOTween.To(() => doorlight.pointLightOuterRadius, x => doorlight.pointLightOuterRadius = x, 3f, 0.3f);
+        //Tweener t = door.GetComponent<SpriteRenderer>().DOColor(Color.clear, doorDisappearTime);
+        //t.Kill();
         yield return new WaitForSeconds(doorDisappearTime);
         Destroy(door);
         hasOpen = true;

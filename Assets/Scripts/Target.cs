@@ -12,6 +12,7 @@ public class Target : MonoBehaviour
         if (collision.tag == "rock")
         {
             collision.GetComponent<Rock>().RockOnTartget();
+            TargetsManager.instance.ChangeDoorLight();
         }
     }
 
@@ -28,6 +29,7 @@ public class Target : MonoBehaviour
         if (collision.tag == "rock")
         {
             collision.GetComponent<Rock>().RockLeaveTarget();
+            TargetsManager.instance.ChangeDoorLight();
         }
     }
 

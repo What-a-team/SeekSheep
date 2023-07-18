@@ -42,16 +42,14 @@ public class PlayerController : MonoBehaviour
         if (!overallControl)
             return;
 
+        /*
         if (Input.GetKeyDown(KeyCode.R))
             ButtonManager.instance.ReloadLevel();
 
         if (Input.GetKeyDown(KeyCode.Escape))
             ButtonManager.instance.LoadLevel("LevelSelect");
+        */
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            print("Interact");
-        }
 
 
         if (!isOnIce)
@@ -95,9 +93,9 @@ public class PlayerController : MonoBehaviour
                 if (direction != Vector3.zero)
                 {
                     Collider2D coll = Physics2D.OverlapCircle(transform.position + direction, 0.1f);
-                    if (coll != null && coll.tag == "rock")
-                        coll.GetComponent<Rock>().IceCheckMove(direction);
-                    else if (coll != null && coll.tag != "ice" && coll.tag != "grass" && CheckMove(direction))
+                   // if (coll != null && coll.tag == "rock")
+                   //     coll.GetComponent<Rock>().IceCheckMove(direction);
+                    if (coll != null && coll.tag != "ice" && coll.tag != "grass" && CheckMove(direction))
                     {
                         _tweener.ChangeEndValue(transform.position + direction, true).Play();
 
@@ -171,7 +169,7 @@ public class PlayerController : MonoBehaviour
         overallControl = false;
         yield return new WaitForSeconds(speedOnIce);
         overallControl = true;
-        coll.GetComponent<Rock>().IceCheckMove(direction);
+        coll.GetComponent<Rock>().CheckMove(direction);
     }
 
 
@@ -254,16 +252,8 @@ public class PlayerController : MonoBehaviour
 
     void FoundSheep()
     {
-        Scene scene = SceneManager.GetActiveScene();
- 
-        if (scene.buildIndex + 1 < SceneManager.sceneCountInBuildSettings)
-        {
-            iso.levelState[scene.buildIndex - 2] = true;  // 去掉主菜单和选关界面
-
-            ButtonManager.instance.LoadLevel(scene.buildIndex + 1);
-        }
-        else
-            ButtonManager.instance.LoadLevel("LevelSelect");
+        print("sheep");
+        NextLevelButton.instance.LoadNextLevel();
     }
 
     void CoolDown()

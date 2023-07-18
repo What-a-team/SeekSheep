@@ -5,7 +5,7 @@ using UnityEngine;
 public class Water : MonoBehaviour
 {
     public Sprite wood;
-    public Sprite stone;
+    public Sprite rockInWater;
 
     SpriteRenderer spriteRenderer;
 
@@ -19,7 +19,7 @@ public class Water : MonoBehaviour
         switch(type)
         {
             case ToolType.Stone:
-                spriteRenderer.sprite = stone;
+                spriteRenderer.sprite = rockInWater;
                 break;
             case ToolType.Wood:
                 spriteRenderer.sprite = wood;

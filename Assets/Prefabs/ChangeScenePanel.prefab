@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2702130159792040513}
   - component: {fileID: 2702130159792040514}
   - component: {fileID: 2702130159792040515}
-  - component: {fileID: 2702130159792040512}
   - component: {fileID: 941921670}
   m_Layer: 5
   m_Name: ChangeScenePanel
@@ -78,20 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2702130159792040512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2702130159792040516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 270733759cd1c8c43932ffbc47efe349, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  changeSceneTime: 0.15
-  endColor: {r: 0.028301895, g: 0.028301895, b: 0.028301895, a: 1}
 --- !u!223 &941921670
 Canvas:
   m_ObjectHideFlags: 0

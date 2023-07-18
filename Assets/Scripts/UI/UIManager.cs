@@ -14,7 +14,10 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            //DontDestroyOnLoad(this);
+        }
         else
             Destroy(gameObject);
 
@@ -34,6 +37,7 @@ public class UIManager : MonoBehaviour
         woodNumText.text = num.ToString();
     }
 
+   
 
 
 }

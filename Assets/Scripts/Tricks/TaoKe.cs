@@ -28,7 +28,7 @@ public class TaoKe : MonoBehaviour
     IEnumerator UIShowUp()
     {
         _tweener.ChangeEndValue(UI.localPosition+new Vector3(0, -moveY, 0), true).Play();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         _tweener.ChangeEndValue(UI.localPosition+new Vector3(0, moveY, 0), true).Play();
     }
 }
