@@ -63,6 +63,13 @@ public class UIManager : MonoBehaviour
         woodNumText.text = "0";
     }
 
+    public void ReturnAxe()
+    {
+        axeImg.SetActive(false);
+        woodImg.SetActive(false);
+        woodNumText.text = "0";
+    }
+
     public void UpdateWoodNum(int num)
     {
         woodNumText.text = num.ToString();

@@ -10,6 +10,7 @@ public class Rock : MonoBehaviour
     public float speedOnIce = 0.3f;
     public float speed = 0.1f;
     public Sprite rockOnTarget;
+    public bool isOnTarget;
 
     Sprite rockNotTarget;
     Tweener _tweener, _tweenerIce;
@@ -42,7 +43,7 @@ public class Rock : MonoBehaviour
 
 
     public bool CheckMove(Vector3 direction)
-    {
+    { 
         Collider2D coll = Physics2D.OverlapCircle(transform.position + direction, 0.1f);
         //RaycastHit2D hit = Physics2D.Raycast(transform.position + direction, direction, 0.1f);
         if (!coll)
@@ -59,22 +60,41 @@ public class Rock : MonoBehaviour
                 case "rock":
                     return false;
                 case "pit":
+                    RetractLastController.instance.isRockIntoPit = true;
+                    RetractLastController.instance.rockPos = transform.position;
+
                     coll.GetComponent<Pit>().FillPit();
                     MoveAndDestroy(direction);
                     return true;
                 case "water":
+                    RetractLastController.instance.ifRockIntoWater = true;
+                    RetractLastController.instance.water = coll.GetComponent<Water>();
+                    RetractLastController.instance.rockPos = transform.position;
+
+
                     coll.GetComponent<Water>().BuildBridge(ToolType.Stone);
                     MoveAndDestroy(direction);
                     return true;
                 case "target":
+                    if (!isOnTarget)
+                    {
+                        isOnTarget = true;
+                    }else
+                    {
+                        print("still on target");
+                    }
                     MoveRock(direction);
+
                     return true;
                 case "ice":  // 石头可以在冰上推一步
                     RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 0.2f, iceDectectLayer);
                     if (hit.transform.tag == "grass")
                         return false;
                     else
+                    {
                         MoveRock(direction);
+                    }
+
                     return true;
                 case "axe":
                     return false;
@@ -195,9 +215,10 @@ public class Rock : MonoBehaviour
 
     void MoveRock(Vector3 direction)
     {
+
         RetractLastController.instance.UpdateRockLast(id);
         _tweener.ChangeEndValue(transform.position + direction, true).Play();
-        RetractLastController.instance.rockStates[id].curPos = transform.position + direction;
+        RetractLastController.instance.UpdateRockCurrent(id, transform.position + direction);
     }
 
 }

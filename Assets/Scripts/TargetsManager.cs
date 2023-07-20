@@ -31,7 +31,7 @@ public class TargetsManager : MonoBehaviour
         doorlight.intensity = originIntensity * (1.5f + 2f*completeNum / totalNum);
     }
 
-
+   
     public void OpenDoor()
     {
         if (!hasOpen && totalNum == completeNum)

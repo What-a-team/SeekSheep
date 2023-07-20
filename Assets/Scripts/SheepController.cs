@@ -30,7 +30,9 @@ public class SheepController : MonoBehaviour
         if (!canCooperation)
             return;
 
+        RetractLastController.instance.UpdateSheepLast();
         _tweener.ChangeEndValue(transform.position + direction, true).Play();
+        RetractLastController.instance.UpdateSheepCurrent(transform.position + direction);
     }
 
 }

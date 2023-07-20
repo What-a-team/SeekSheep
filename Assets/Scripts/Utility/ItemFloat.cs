@@ -7,7 +7,7 @@ public class ItemFloat : MonoBehaviour
     public float range=0.05f, T=2f;
     Vector3 originalPos;
 
-    private void Awake()
+    private void Start()
     {
         originalPos = transform.position;
     }

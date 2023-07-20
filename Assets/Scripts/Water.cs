@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
+    public bool isOnWood = false;
     public Sprite wood;
     public Sprite rockInWater;
 
@@ -29,15 +30,39 @@ public class Water : MonoBehaviour
         transform.tag = "grass";
     }
 
+    public void DestroyBridge()
+    {
+        spriteRenderer.sprite = null;
+        transform.tag = "water";
+    }
 
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player" && spriteRenderer.sprite == wood)
+        {
+            isOnWood = true;
+
+        }
+
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player" && spriteRenderer.sprite == wood)
         {
+            RetractLastController.instance.water = this;
+            RetractLastController.instance.ifDestroyWood = true;
+
             spriteRenderer.sprite = null;
             transform.tag = "water";
         }
-        
+
+
+       if (!RetractLastController.instance.canClick)
+       {
+            BuildBridge(ToolType.Wood);
+       }
     }
 
 }
