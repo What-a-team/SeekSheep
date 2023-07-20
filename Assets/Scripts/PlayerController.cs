@@ -72,7 +72,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (CheckMove(direction, this.transform))
                 {
+                    RetractLastController.instance.UpdatePlayerLast();
                     _tweener.ChangeEndValue(transform.position + direction, true).Play();
+                    RetractLastController.instance.currentPlayerPos = transform.position+direction;
 
                     hasCoolDown = false;
                     step++;

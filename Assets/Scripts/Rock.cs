@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
+    public int id;
     public LayerMask iceDectectLayer, normalDetectLayer;
     public float speedOnIce = 0.3f;
     public float speed = 0.1f;
@@ -46,7 +47,7 @@ public class Rock : MonoBehaviour
         //RaycastHit2D hit = Physics2D.Raycast(transform.position + direction, direction, 0.1f);
         if (!coll)
         {
-            _tweener.ChangeEndValue(transform.position + direction, true).Play();
+            MoveRock(direction);
             return true;
         }
         else
@@ -66,24 +67,24 @@ public class Rock : MonoBehaviour
                     MoveAndDestroy(direction);
                     return true;
                 case "target":
-                    _tweener.ChangeEndValue(transform.position + direction, true).Play();
+                    MoveRock(direction);
                     return true;
                 case "ice":  // 石头可以在冰上推一步
                     RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 0.2f, iceDectectLayer);
                     if (hit.transform.tag == "grass")
                         return false;
                     else
-                        _tweener.ChangeEndValue(transform.position + direction, true).Play();
+                        MoveRock(direction);
                     return true;
                 case "axe":
                     return false;
                 case "fakeTree":
-                    _tweener.ChangeEndValue(transform.position + direction, true).Play();
+                    MoveRock(direction);
                     return true;
                 case "sheep":
                     return false;
                 case "grass":
-                    _tweener.ChangeEndValue(transform.position + direction, true).Play();
+                    MoveRock(direction);
                     return true;
             }
         }
@@ -191,5 +192,12 @@ public class Rock : MonoBehaviour
 
     }
 
+
+    void MoveRock(Vector3 direction)
+    {
+        RetractLastController.instance.UpdateRockLast(id);
+        _tweener.ChangeEndValue(transform.position + direction, true).Play();
+        RetractLastController.instance.rockStates[id].curPos = transform.position + direction;
+    }
 
 }
