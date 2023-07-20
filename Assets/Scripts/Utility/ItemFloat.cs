@@ -13,7 +13,7 @@ public class ItemFloat : MonoBehaviour
     }
     private void Update()
     {
-        transform.position = originalPos + range * new Vector3(0, Mathf.Sin(T*Time.time), 0);
+        transform.position = originalPos + 0.5F * range * new Vector3(0, Mathf.Sin(T*Time.time) + Mathf.Cos(2*T * Time.time), 0);
     }
 
 }

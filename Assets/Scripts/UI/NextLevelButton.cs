@@ -9,8 +9,10 @@ public class NextLevelButton : MonoBehaviour
 {
     public static NextLevelButton instance { get; private set; }
     public GameObject panelBetweenevel;
+    public Text sheepName;
     public Button nextLevelButton;
-    LevelState_ISO iso;
+    public float dialogStayTime = 2f;
+    public LevelState_ISO iso;
     private void Awake()
     {
         if (instance == null)
@@ -25,9 +27,14 @@ public class NextLevelButton : MonoBehaviour
     }
     public void LoadNextLevel()
     {
-        UIManager.instance.UpdateDialogAndShow("complete", 2f);
-        panelBetweenevel.SetActive(true);
+        UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
 
+        iso.levelState[scene.buildIndex - 2] = true;  // 去掉主菜单和选关界面
+
+        if (iso.Dialogs[scene.buildIndex - 2].findSheepDialog != "null")
+            StartCoroutine(DialogAndPanel(scene.buildIndex - 2));
+        else
+            OnlyPanel(scene.buildIndex - 2);
 
 
         if (SceneManager.GetActiveScene().buildIndex + 1 >= SceneManager.sceneCountInBuildSettings)
@@ -36,13 +43,32 @@ public class NextLevelButton : MonoBehaviour
         }
     }
 
+    IEnumerator DialogAndPanel(int level)
+    {
+        UIManager.instance.UpdateDialogAndShow(iso.Dialogs[level].findSheepDialog, dialogStayTime);
+        yield return new WaitForSeconds(dialogStayTime);
+
+
+        panelBetweenevel.SetActive(true);
+        sheepName.text = iso.Dialogs[level].name;
+    }
+
+
+    public void OnlyPanel(int level)
+    {
+        
+        panelBetweenevel.SetActive(true);
+        sheepName.text = iso.Dialogs[level].name;
+    }
+
+
     public void NextButton()
     {
         UnityEngine.SceneManagement.Scene scene = SceneManager.GetActiveScene();
 
         if (scene.buildIndex + 1 < SceneManager.sceneCountInBuildSettings)
         {
-            iso.levelState[scene.buildIndex - 2] = true;  // 去掉主菜单和选关界面
+            
 
             ButtonManager.instance.LoadLevel(scene.buildIndex + 1);
         }

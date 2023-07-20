@@ -1556,7 +1556,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2100575333
-  m_SortingLayer: 0
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 44c931aea9ba6f64ea3f3dc3af21edb6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3833,8 +3833,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 434620420}
   doorDisappearTime: 0.8
-  totalNum: 3
   completeNum: 0
+  totalNum: 3
 --- !u!1001 &941921665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6627,6 +6627,10 @@ MonoBehaviour:
   axeImg: {fileID: 1621395703}
   woodImg: {fileID: 149835362}
   woodNumText: {fileID: 1355113393}
+  dialogUI: {fileID: 0}
+  moveY: 120
+  showUpTime: 0.5
+  DialogText: {fileID: 0}
 --- !u!4 &1476879271
 Transform:
   m_ObjectHideFlags: 0
@@ -7489,7 +7493,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2041146427
-  m_SortingLayer: 0
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6513a35579a94ab4a85ed53271dc810e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7888,7 +7892,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2100575333
-  m_SortingLayer: 0
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: c43820ad78cf4c447ae256e063cc5c4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7934,8 +7938,15 @@ MonoBehaviour:
   normalDetectLayer:
     serializedVersion: 2
     m_Bits: 321
+  step: 0
+  speedOnLand: 0.1
   speedOnIce: 0.3
+  overallControl: 1
   wood: 0
+  isOnIce: 0
+  canControl: 1
+  sheepController: {fileID: 0}
+  hasFindSheep: 0
 --- !u!50 &1627832490
 Rigidbody2D:
   serializedVersion: 4
@@ -8173,7 +8184,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 235860557
-  m_SortingLayer: 0
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -13901,7 +13912,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2041146427
-  m_SortingLayer: 0
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 02154b08fab93df4e9dc9dd8bab64af8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -14544,7 +14555,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1463643773
-  m_SortingLayer: 0
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 23b49e97a0c3c3945875fa4fec725e88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -14610,9 +14621,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e4ab0f20b9bb64c8b0a1b60d3e59aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axeImg: {fileID: 1621395703}
-  woodImg: {fileID: 0}
-  woodNumText: {fileID: 0}
 --- !u!1001 &2140550231
 PrefabInstance:
   m_ObjectHideFlags: 0

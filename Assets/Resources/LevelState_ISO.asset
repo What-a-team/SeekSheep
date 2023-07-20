@@ -12,4 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e4e7f2e39206d4aa6552b4300f94dd, type: 3}
   m_Name: LevelState_ISO
   m_EditorClassIdentifier: 
-  levelState: 0101010101
+  levelState: 0000000000000000
+  Dialogs:
+  - name: Barbara
+    findSheepDialog: Poor babe, mama is coming soon.
+    enterLevelDialog: null
+  - name: Helena
+    findSheepDialog: Found you finally...child is waiting~
+    enterLevelDialog: null
+  - name: Fred
+    findSheepDialog: Fred! I told you the ice is dangerous,especially for a 200 pound-naughty
+      boy.
+    enterLevelDialog: "Christ\uFF0Cthis child is such a troublemaker."
+  - name: 'Jimmy '
+    findSheepDialog: You find no such delicious carrot leaving home huh?
+    enterLevelDialog: Jimmy is always on the hunt for something to eat.
+  - name: Nick
+    findSheepDialog: "Didn\u2019t sleep well buddy?"
+    enterLevelDialog: "It\u2019s getting dark,but I could have my torch to light."
+  - name: Mia
+    findSheepDialog: Would there be anything I could help you, lady?
+    enterLevelDialog: Mia seems like seeking for someone.
+  - name: Fred
+    findSheepDialog: "I\u2019m too old for hide and seek\uFF0CFred."
+    enterLevelDialog: Looking for Fred? A second,did I just see him on the ice?
+  - name: Jimmy
+    findSheepDialog: null
+    enterLevelDialog: Jimmy, is that you again?

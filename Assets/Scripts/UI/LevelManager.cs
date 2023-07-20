@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     public List<Button> buttons;
 
-    LevelState_ISO iso;
+    public LevelState_ISO iso;
 
     private void Awake()
     {

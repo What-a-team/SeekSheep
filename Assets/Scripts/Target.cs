@@ -5,6 +5,12 @@ using UnityEngine;
 // 传统推箱子的目标
 public class Target : MonoBehaviour
 {
+    public TargetsManager targetsManager;
+
+    private void Start()
+    {
+        targetsManager = this.GetComponentInParent<TargetsManager>();
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -12,7 +18,7 @@ public class Target : MonoBehaviour
         if (collision.tag == "rock")
         {
             collision.GetComponent<Rock>().RockOnTartget();
-            TargetsManager.instance.ChangeDoorLight();
+            targetsManager.ChangeDoorLight();
         }
     }
 
@@ -29,7 +35,7 @@ public class Target : MonoBehaviour
         if (collision.tag == "rock")
         {
             collision.GetComponent<Rock>().RockLeaveTarget();
-            TargetsManager.instance.ChangeDoorLight();
+            targetsManager.ChangeDoorLight();
         }
     }
 

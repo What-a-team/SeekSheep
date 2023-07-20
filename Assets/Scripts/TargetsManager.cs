@@ -6,13 +6,13 @@ using UnityEngine.Rendering.Universal;
 
 public class TargetsManager : MonoBehaviour
 {
-    public static TargetsManager instance { get; private set; }
+    //public static TargetsManager instance { get; private set; }
 
     public GameObject door;
     public float doorDisappearTime = 1f;
     public int completeNum;  // 推到了目标位置上的箱子数量
 
-    int totalNum;
+    public int totalNum;
     bool hasOpen = false;
 
     Light2D doorlight;
@@ -20,12 +20,8 @@ public class TargetsManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(gameObject);
-
-        totalNum = transform.childCount;
+        totalNum = GetComponentsInChildren<Target>().Length;
+       // totalNum = transform.childCount;
         doorlight = door.transform.GetChild(0).GetComponent<Light2D>();
         originIntensity = doorlight.intensity;
     }

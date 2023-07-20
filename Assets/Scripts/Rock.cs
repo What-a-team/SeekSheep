@@ -5,14 +5,20 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
+    public LayerMask iceDectectLayer, normalDetectLayer;
     public float speedOnIce = 0.3f;
     public float speed = 0.1f;
     public Sprite rockOnTarget;
+
     Sprite rockNotTarget;
     Tweener _tweener, _tweenerIce;
 
     SpriteRenderer spriteRenderer;
     GameObject rock_light;
+
+    [Header("DuiYin-targetsmanager")]
+    public TargetsManager targetsManager;
+
     void Start()
     {
         _tweener = this.transform.DOMove(transform.position, speed).SetAutoKill(false);
@@ -22,8 +28,16 @@ public class Rock : MonoBehaviour
         rockNotTarget = spriteRenderer.sprite;
         rock_light = this.transform.GetChild(0).gameObject;
 
+
+        targetsManager = this.GetComponentInParent<TargetsManager>();
+
     }
 
+
+    private void Update()
+    {
+        spriteRenderer.sortingOrder = (int)-transform.position.y;
+    }
 
 
     public bool CheckMove(Vector3 direction)
@@ -55,7 +69,11 @@ public class Rock : MonoBehaviour
                     _tweener.ChangeEndValue(transform.position + direction, true).Play();
                     return true;
                 case "ice":  // 石头可以在冰上推一步
-                    _tweener.ChangeEndValue(transform.position + direction, true).Play();
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 0.2f, iceDectectLayer);
+                    if (hit.transform.tag == "grass")
+                        return false;
+                    else
+                        _tweener.ChangeEndValue(transform.position + direction, true).Play();
                     return true;
                 case "axe":
                     return false;
@@ -155,9 +173,9 @@ public class Rock : MonoBehaviour
 
     public void RockOnTartget()
     {
-        
-        TargetsManager.instance.completeNum++;
-        TargetsManager.instance.OpenDoor();
+
+        targetsManager.completeNum++;
+        targetsManager.OpenDoor();
     }
     public void RockStayOnTarget()
     {
@@ -169,7 +187,7 @@ public class Rock : MonoBehaviour
     {
         spriteRenderer.sprite = rockNotTarget;
         rock_light.SetActive(false);
-        TargetsManager.instance.completeNum--;
+        targetsManager.completeNum--;
 
     }
 

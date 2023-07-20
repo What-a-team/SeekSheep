@@ -30,11 +30,13 @@ public class ButtonManager : MonoBehaviour
     }
 
 
+    /*
     public void LoadLevel(string name)
     {
         //StartCoroutine(ChangeScene(name));
         SceneManager.LoadScene(name);
     }
+    */
 
     public void LoadLevel(int idx)
     {
@@ -68,7 +70,7 @@ public class ButtonManager : MonoBehaviour
         SceneManager.LoadScene(name);
        // _tweener1.ChangeEndValue(Color.clear, true).Play();
          panelImg.DOColor(Color.clear, changeSceneTime);
-        yield return new WaitForSeconds(changeSceneTime);
+         yield return new WaitForSeconds(changeSceneTime);
 
 
     }

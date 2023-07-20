@@ -232,7 +232,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &12659228
 PrefabInstance:
@@ -1747,11 +1747,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4782472171929297404, guid: 7af886c37ac24364ebff611d70ef2dc5, type: 3}
   m_PrefabInstance: {fileID: 426975229}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &434620420 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4298968680623593695, guid: 185992511fb56074e955db34607ee4fa, type: 3}
-  m_PrefabInstance: {fileID: 3405838888790032981}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &441098158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2505,7 +2500,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &607746681
@@ -5182,7 +5177,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1155449257
@@ -8110,7 +8105,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1611413192 stripped
@@ -8296,8 +8291,15 @@ MonoBehaviour:
   normalDetectLayer:
     serializedVersion: 2
     m_Bits: 321
+  step: 0
+  speedOnLand: 0.1
   speedOnIce: 0.3
+  overallControl: 1
   wood: 0
+  isOnIce: 0
+  canControl: 1
+  sheepController: {fileID: 0}
+  hasFindSheep: 0
 --- !u!50 &1627832490
 Rigidbody2D:
   serializedVersion: 4
@@ -13773,7 +13775,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1817100356
@@ -14698,7 +14700,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2038370366
@@ -15161,9 +15163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e4ab0f20b9bb64c8b0a1b60d3e59aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axeImg: {fileID: 1621395703}
-  woodImg: {fileID: 0}
-  woodNumText: {fileID: 0}
 --- !u!4 &2120574227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8768136594060701942, guid: ae12d542e2e806d4eb0c89fdc63ef605, type: 3}
@@ -15355,79 +15354,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72a42bf446f45cf499519ab2ff1b6bb7, type: 3}
---- !u!1001 &2136596076628577827
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2136596075702123804, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: door
-      value: 
-      objectReference: {fileID: 434620420}
-    - target: {fileID: 2136596077300149637, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: axeImg
-      value: 
-      objectReference: {fileID: 1621395703}
-    - target: {fileID: 2136596077300149637, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: woodImg
-      value: 
-      objectReference: {fileID: 149835362}
-    - target: {fileID: 2136596077300149637, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: woodNumText
-      value: 
-      objectReference: {fileID: 1355113393}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_RootOrder
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177308, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136596077626177309, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
-      propertyPath: m_Name
-      value: Managers
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 86f1b932a0fac7b45898a7d7fd5620a2, type: 3}
 --- !u!1001 &3405838888790032981
 PrefabInstance:
   m_ObjectHideFlags: 0
