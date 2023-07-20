@@ -53,9 +53,11 @@ public class RetractLastController : MonoBehaviour
 
         lastPlayerPos = Vector3.zero;
         currentPlayerPos = controller.transform.position;
+        lastSheepPos = Vector3.zero;
+        currentSheepPos = sheepController.transform.position;
 
 
-        
+
         for (int i = 0; i < rocks.Length; i++)
         {
             rocks[i].id = i;

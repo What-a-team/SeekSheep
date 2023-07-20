@@ -50,7 +50,7 @@ public class BGMManager : MonoBehaviour
         {
             if (bgms[i].name == name)
             {
-                print("[bgm]find" + name);
+                print("[bgm]find " + name);
                 return bgms[i].clip;
             }
         }

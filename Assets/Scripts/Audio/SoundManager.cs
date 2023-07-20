@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
         {
             if (sounds[i].name == name)
             {
-                print("[sound]find" + name);
+                print("[sound]find " + name);
                 return sounds[i].clip;
             }
         }

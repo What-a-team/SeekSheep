@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e4e7f2e39206d4aa6552b4300f94dd, type: 3}
   m_Name: LevelState_ISO
   m_EditorClassIdentifier: 
-  levelState: 0000000000000000
+  levelState: 010101000000000000
   Dialogs:
   - name: Barbara
     findSheepDialog: Poor babe, mama is coming soon.
@@ -33,9 +33,12 @@ MonoBehaviour:
   - name: Mia
     findSheepDialog: Would there be anything I could help you, lady?
     enterLevelDialog: Mia seems like seeking for someone.
-  - name: Fred
-    findSheepDialog: "I\u2019m too old for hide and seek\uFF0CFred."
-    enterLevelDialog: Looking for Fred? A second,did I just see him on the ice?
+  - name: Nick
+    findSheepDialog: "I\u2019m too old for hide and seek, Nick."
+    enterLevelDialog: Nick? A second, did I just see you on the ice? Nick?
   - name: Jimmy
     findSheepDialog: null
     enterLevelDialog: Jimmy, is that you again?
+  - name: Simon
+    findSheepDialog: null
+    enterLevelDialog: "Barbara,coming for me\uFF01"

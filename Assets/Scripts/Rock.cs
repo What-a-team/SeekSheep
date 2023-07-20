@@ -81,7 +81,7 @@ public class Rock : MonoBehaviour
                         isOnTarget = true;
                     }else
                     {
-                        print("still on target");
+                        //print("still on target");
                     }
                     MoveRock(direction);
 

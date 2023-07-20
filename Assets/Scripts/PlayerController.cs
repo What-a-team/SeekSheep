@@ -82,6 +82,12 @@ public class PlayerController : MonoBehaviour
                     _tweener.ChangeEndValue(transform.position + direction, true).Play();
                     RetractLastController.instance.UpdatePlayerCurrent(transform.position+direction, isOnIce);
 
+
+                    if (SoundManager.instance != null)
+                        SoundManager.instance.SoundPlayOneShot(Soundtype.step);
+
+
+
                     hasCoolDown = false;
                     step++;
                 }
@@ -116,12 +122,31 @@ public class PlayerController : MonoBehaviour
 
 
                     Collider2D coll = Physics2D.OverlapCircle(transform.position + direction, 0.1f);
-                    // if (coll != null && coll.tag == "rock")
-                    //     coll.GetComponent<Rock>().IceCheckMove(direction);
-                    if (coll != null && coll.tag != "ice" && coll.tag != "grass" && CheckMove(direction, this.transform))
+
+
+                    if (coll != null && coll.tag == "water")
+                    {
+                        Debug.Log("water!");
+                        if (wood > 0)
+                        {
+                            RetractLastController.instance.ifMovePlayer = false;
+                            RetractLastController.instance.ifMoveSheep = false;
+                            RetractLastController.instance.ifWoodIntoWater = true;
+                            RetractLastController.instance.water = coll.GetComponent<Water>();
+                            RetractLastController.instance.canClick = true;
+                            RetractLastController.instance.button.interactable = true;
+
+                            wood--;
+                            UIManager.instance.UpdateWoodNum(wood);
+                            coll.GetComponent<Water>().BuildBridge(ToolType.Wood);
+                        }
+                        direction = Vector3.zero;
+                        return;
+                    }
+                    else if (coll != null && coll.tag != "ice" && coll.tag != "grass" && CheckMove(direction, this.transform))
                     {
                         RetractLastController.instance.UpdatePlayerLast();
-                        _tweener.ChangeEndValue(transform.position + direction, true).Play();
+                        _tweenerIce.ChangeEndValue(transform.position + direction, true).Play();
                         RetractLastController.instance.UpdatePlayerCurrent(transform.position + direction, isOnIce);
 
                         hasCoolDown = false;
@@ -129,6 +154,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("why!");
                         StartCoroutine(SkateOnIce());
 
                         step++;
@@ -169,12 +195,12 @@ public class PlayerController : MonoBehaviour
         {
             isLastOnIce = isOnIce;
 
-            if (coll.tag == "grass")
+            if (coll.tag == "grass" || coll.tag == "target")
             {
                 isOnIce = false;
 
                 RetractLastController.instance.UpdatePlayerLast();
-                _tweener.ChangeEndValue(coll.transform.position, true).Play();
+                _tweenerIce.ChangeEndValue(coll.transform.position, true).Play();
 
                 RetractLastController.instance.UpdatePlayerCurrent(coll.transform.position, isOnIce);
 
@@ -184,7 +210,7 @@ public class PlayerController : MonoBehaviour
             else if (coll.tag == "rock")
             {
                 RetractLastController.instance.UpdatePlayerLast();
-                _tweener.ChangeEndValue(coll.transform.position - direction, true).Play();
+                _tweenerIce.ChangeEndValue(coll.transform.position - direction, true).Play();
                 RetractLastController.instance.UpdatePlayerCurrent(coll.transform.position - direction, isOnIce);
 
                 //_tweenerIce.ChangeEndValue(coll.transform.position - direction, true).Play();
@@ -194,7 +220,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 RetractLastController.instance.UpdatePlayerLast();
-                _tweener.ChangeEndValue(coll.transform.position - direction, true).Play();
+                _tweenerIce.ChangeEndValue(coll.transform.position - direction, true).Play();
                 RetractLastController.instance.UpdatePlayerCurrent(coll.transform.position - direction, isOnIce);
                 //_tweenerIce.ChangeEndValue(coll.transform.position - direction, true).Play();
             }
@@ -244,6 +270,8 @@ public class PlayerController : MonoBehaviour
                         RetractLastController.instance.ifMoveSheep = false;
                         RetractLastController.instance.ifWoodIntoWater = true;
                         RetractLastController.instance.water = coll.GetComponent<Water>();
+                        RetractLastController.instance.canClick = true;
+                        RetractLastController.instance.button.interactable = true;
 
                         wood--;
                         UIManager.instance.UpdateWoodNum(wood);

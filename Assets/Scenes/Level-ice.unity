@@ -4942,6 +4942,10 @@ PrefabInstance:
       propertyPath: isOnIce
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4400120064733717238, guid: 3082525c4121715489defebf278983be, type: 3}
+      propertyPath: speedOnIce
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4400120064733717241, guid: 3082525c4121715489defebf278983be, type: 3}
       propertyPath: m_RootOrder
       value: 3
